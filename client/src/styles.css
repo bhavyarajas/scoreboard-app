@@ -1,0 +1,180 @@
+:root {
+  --bg: #0b0c10;
+  --panel: #15171c;
+  --text: #e5e7eb;
+  --muted: #9aa0a6;
+  --accent: #4f46e5;
+  --accent-2: #22c55e;
+  --error: #ef4444;
+  --border: #2a2f3a;
+  --focus: #93c5fd;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: linear-gradient(180deg, var(--bg), #121318);
+  color: var(--text);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 28px auto;
+  padding: 0 16px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.table-wrap {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: auto;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+
+.score-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 760px;
+}
+
+.score-table thead th {
+  position: sticky;
+  top: 0;
+  background: #1a1d25;
+  color: #f3f4f6;
+  text-align: left;
+  font-weight: 600;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.score-table tbody td, .score-table thead th {
+  border-right: 1px solid var(--border);
+}
+.score-table tbody td:last-child, .score-table thead th:last-child {
+  border-right: none;
+}
+
+.score-table tbody td {
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+.name-cell {
+  font-weight: 600;
+  white-space: nowrap;
+  color: #e2e8f0;
+}
+
+.cell {
+  white-space: nowrap;
+}
+
+.cell-wrap {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  gap: 6px;
+}
+
+.total {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+select, .btn {
+  font: inherit;
+  border: 1px solid var(--border);
+  background: #0f1218;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 8px;
+  line-height: 1;
+}
+
+select:focus, .btn:focus {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.btn.small {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.btn.small:hover { border-color: var(--accent); }
+.btn.small:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.85rem;
+  min-height: 1.1rem;
+}
+
+footer {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Accessibility helper for offscreen labels */
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+.total-cell strong {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+/* Toast / snackbar */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  background: rgba(20, 22, 28, 0.95);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+  z-index: 9999;
+  font-weight: 600;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* optional: emphasize total column */
+.total-cell strong {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
