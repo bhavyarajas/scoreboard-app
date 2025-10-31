@@ -19,6 +19,8 @@ origins = [
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
+    "https://scoreboard-app-snowy.vercel.app",
+    "https://scoreboard-5giulo5pi-bhavyas-projects-67262c82.vercel.app",
 ]
 app.add_middleware(
     CORSMiddleware,
