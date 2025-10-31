@@ -117,8 +117,8 @@ def post_action(payload: Action, db: Session = Depends(get_db)):
 
         # mime
         elif game.key == "mime":
-            if amount != 125:
-                raise HTTPException(status_code=400, detail="Mime must be 125")
+            if amount not in (125, -100):
+                raise HTTPException(status_code=400, detail="Mime must be 125 or -100")
             score.total += amount
 
         # bingo
