@@ -9,7 +9,8 @@ from seed import init_db, seed_data, get_seed_config
 from schemas import Action, ScoreResponse, ScoresEnvelope
 
 import os
-from fastapi import Header
+from fastapi import Header, HTTPException
+from sqlalchemy import text
 
 app = FastAPI(title="Scoreboard API")
 
@@ -166,17 +167,25 @@ def post_action(payload: Action, db: Session = Depends(get_db)):
 
 ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
 
-@app.post("/admin/reset", status_code=204)
+@app.post("/admin/reset")
 def admin_reset(
     db: Session = Depends(get_db),
     x_admin_token: str = Header(default="")
 ):
-    # simple header-based guard
+    # 1) auth check
     if not ADMIN_TOKEN or x_admin_token != ADMIN_TOKEN:
-      raise HTTPException(status_code=401, detail="Unauthorized")
+        raise HTTPException(status_code=401, detail="Unauthorized")
 
-    # clear scores + logs
-    db.execute("UPDATE scores SET total = 0;")
-    db.execute("DELETE FROM logs;")
-    db.commit()
-    return
+    try:
+        # 2) reset scores
+        db.execute(text("UPDATE scores SET total = 0;"))
+        # 3) clear logs (table name might be 'logs' or 'log' depending on your models)
+        db.execute(text("DELETE FROM logs;"))
+        db.commit()
+    except Exception as e:
+        # rollback so DB is not stuck
+        db.rollback()
+        # rethrow as HTTP 500 with message so we can see it in logs
+        raise HTTPException(status_code=500, detail=f"Reset failed: {e}")
+
+    return {"status": "ok"}
