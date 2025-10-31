@@ -109,6 +109,7 @@ import RingTossCell from "./CellControls/RingTossCell";
 import SimpleWinCell from "./CellControls/SimpleWinCell";
 import JeopardyCell from "./CellControls/JeopardyCell";
 import Toast from "./Toast";
+import EyeTossCell from "./CellControls/EyeTossCell";
 
 export default function ScoreTable({ people, games, api }) {
   const gameOrderKeys = useMemo(() => games.map((g) => g.key), [games]);
@@ -232,8 +233,11 @@ export default function ScoreTable({ people, games, api }) {
 }
 
 function Cell({ person, gameKey, api }) {
-  if (gameKey === "ring_toss" || gameKey === "eye_toss") {
+  if (gameKey === "ring_toss") {
     return <RingTossCell person={person} gameKey={gameKey} api={api} />;
+  }
+  if (gameKey === "eye_toss") {
+    return <EyeTossCell person={person} gameKey={gameKey} api={api} />;
   }
   if (gameKey === "jeopardy") {
     return <JeopardyCell person={person} gameKey={gameKey} api={api} />;
