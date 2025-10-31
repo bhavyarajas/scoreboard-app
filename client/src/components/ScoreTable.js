@@ -95,7 +95,8 @@ export default function ScoreTable({ people, games, api }) {
 }
 
 function Cell({ person, gameKey, api }) {
-  if (gameKey === "ring_toss") {
+  if (gameKey === "ring_toss" || gameKey === "eye_toss") {
+    // Both use the same dropdown-based component
     return <RingTossCell person={person} gameKey={gameKey} api={api} />;
   }
   if (gameKey === "jeopardy") {

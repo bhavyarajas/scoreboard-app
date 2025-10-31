@@ -127,10 +127,10 @@ def post_action(payload: Action, db: Session = Depends(get_db)):
                 raise HTTPException(status_code=400, detail="Bingo must be 150")
             score.total += amount
 
-        # eye toss (win or lose)
+        # eye toss 
         elif game.key == "eye_toss":
-            if amount not in (200.0, -100.0):
-                raise HTTPException(status_code=400, detail="Eye Toss must be 200 or -100")
+            if amount not in (25.0, 50.0, 75.0, 100.0):
+                raise HTTPException(status_code=400, detail="Eye Toss amount must be one of 25, 50, 75, 100")
             score.total += amount
 
         # roulette (win or lose)
