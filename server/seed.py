@@ -3,7 +3,7 @@ from models import Person, Game, Score
 from db import Base, engine
 
 # Single source of truth seed lists
-PEOPLE = ["Aadit","Akshita","Anant","Arjun","Ishaan", "Jigar","Kabir", "Mayukha","Nandini","Priyanka", "Sania"]
+PEOPLE = ["Aadit","Akshita","Anant","Arjun","Chirag","Ishaan", "Jigar","Kabir", "Mayukha","Nandini","Sohum", "Sania"]
 
 GAMES = [
     {"key": "ring_toss", "label": "Ring Toss"},
