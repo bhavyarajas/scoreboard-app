@@ -87,7 +87,7 @@ def post_action(payload: Action, db: Session = Depends(get_db)):
         db.flush()
 
     # SCORING TABLE (backend truth)
-    RING_TOSS_VALUES = [25, 50, 75, 100]
+    RING_TOSS_VALUES = [50, 100, 150, 200, 250]
     JEOPARDY_VALUES = {100, 200, 300, 400, 500}
 
     if payload.type == "add":
@@ -129,7 +129,7 @@ def post_action(payload: Action, db: Session = Depends(get_db)):
 
         # eye toss 
         elif game.key == "eye_toss":
-            if amount not in (25.0, 50.0, 75.0, 100.0):
+            if amount not in (25, 50, 75, 100):
                 raise HTTPException(status_code=400, detail="Eye Toss amount must be one of 25, 50, 75, 100")
             score.total += amount
 
