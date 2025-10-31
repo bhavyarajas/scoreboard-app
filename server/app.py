@@ -8,6 +8,9 @@ from models import Person, Game, Score, Log
 from seed import init_db, seed_data, get_seed_config
 from schemas import Action, ScoreResponse, ScoresEnvelope
 
+import os
+from fastapi import Header
+
 app = FastAPI(title="Scoreboard API")
 
 # CORS for localhost dev (CRA: 3000; Vite allowed too per spec)
@@ -157,3 +160,21 @@ def post_action(payload: Action, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(score)
     return ScoreResponse(person=person.name, game=game.key, total=score.total)
+
+
+ADMIN_TOKEN = os.getenv("ADMIN_TOKEN", "")
+
+@app.post("/admin/reset", status_code=204)
+def admin_reset(
+    db: Session = Depends(get_db),
+    x_admin_token: str = Header(default="")
+):
+    # simple header-based guard
+    if not ADMIN_TOKEN or x_admin_token != ADMIN_TOKEN:
+      raise HTTPException(status_code=401, detail="Unauthorized")
+
+    # clear scores + logs
+    db.execute("UPDATE scores SET total = 0;")
+    db.execute("DELETE FROM logs;")
+    db.commit()
+    return
