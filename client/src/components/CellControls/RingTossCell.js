@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-const VALUES = [25, 50, 75, 100];
+const VALUES = [50, 100, 150, 200, 250];
 
 export default function RingTossCell({ person, gameKey, api }) {
   const k = `${person}|${gameKey}`;

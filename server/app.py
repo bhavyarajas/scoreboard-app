@@ -98,7 +98,7 @@ def post_action(payload: Action, db: Session = Depends(get_db)):
         # ring toss
         if game.key == "ring_toss":
             if amount not in RING_TOSS_VALUES:
-                raise HTTPException(status_code=400, detail="Ring Toss amount must be one of 25,50,75,100")
+                raise HTTPException(status_code=400, detail="Ring Toss amount must be one of 50,100,150,200,250")
             score.total += amount
 
         # jeopardy
